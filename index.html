@@ -1,63 +1,119 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exemplo de Vetores e Matrizes</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 30px;
-            background-color: #f2f2f2;
-        }
-        h1 {
-            color: #333;
-        }
-        pre {
-            background-color: #fff;
-            padding: 15px;
-            border-radius: 5px;
-            box-shadow: 0 0 5px rgba(0,0,0,0.1);
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema de Notas</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background-color: #f9f9f9;
+    }
+    h1 {
+      color: #333;
+    }
+    input, button {
+      margin: 5px;
+      padding: 8px;
+      font-size: 14px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: center;
+    }
+    th {
+      background-color: #eaeaea;
+    }
+  </style>
 </head>
 <body>
 
-    <h1>Exemplo de Vetores e Matrizes em JavaScript</h1>
+  <h1>📚 Sistema de Registro de Notas</h1>
 
-    <pre id="saida">Carregando...</pre>
+  <label>Nome do aluno:</label>
+  <input type="text" id="nomeAluno" placeholder="Digite o nome">
+  <br>
 
-    <script>
-        // ---------- VETORES ----------
-        let frutas = ["Maçã", "Banana", "Laranja", "Uva"];
-        let primeiraFruta = frutas[0];
-        let ultimaFruta = frutas[frutas.length - 1];
+  <label>Notas (separe por vírgulas):</label>
+  <input type="text" id="notasAluno" placeholder="Ex: 7.5, 8.0, 9.0">
+  <br>
 
-        // ---------- MATRIZES ----------
-        let matriz = [
-            [1, 2, 3],
-            [4, 5, 6],
-            [7, 8, 9]
-        ];
+  <button onclick="adicionarAluno()">Adicionar Aluno</button>
+  <button onclick="mostrarResultados()">Mostrar Resultados</button>
 
-        let elementoCentral = matriz[1][1];
-        let cantoInferiorDireito = matriz[2][2];
+  <div id="saida"></div>
 
-        // ---------- EXIBIÇÃO ----------
-        let texto = "";
+  <script>
+    // Vetores e matrizes
+    let alunos = [];        // Vetor para armazenar nomes
+    let notasAlunos = [];   // Matriz para armazenar as notas de cada aluno
 
-        texto += "=== VETORES ===\n";
-        texto += "Frutas: " + frutas.join(", ") + "\n";
-        texto += "Primeira fruta: " + primeiraFruta + "\n";
-        texto += "Última fruta: " + ultimaFruta + "\n\n";
+    function adicionarAluno() {
+      let nome = document.getElementById("nomeAluno").value.trim();
+      let notasTexto = document.getElementById("notasAluno").value.trim();
 
-        texto += "=== MATRIZES ===\n";
-        texto += "Matriz:\n" + JSON.stringify(matriz) + "\n";
-        texto += "Elemento central (matriz[1][1]): " + elementoCentral + "\n";
-        texto += "Canto inferior direito (matriz[2][2]): " + cantoInferiorDireito + "\n";
+      if (nome === "" || notasTexto === "") {
+        alert("Por favor, preencha o nome e as notas do aluno.");
+        return;
+      }
 
-        document.getElementById("saida").textContent = texto;
-    </script>
+      // Converte as notas em números
+      let notas = notasTexto.split(",").map(n => parseFloat(n));
+
+      if (notas.some(isNaN)) {
+        alert("Digite apenas números separados por vírgulas.");
+        return;
+      }
+
+      // Adiciona às listas
+      alunos.push(nome);
+      notasAlunos.push(notas);
+
+      // Limpa os campos
+      document.getElementById("nomeAluno").value = "";
+      document.getElementById("notasAluno").value = "";
+
+      alert(`Aluno ${nome} adicionado com sucesso!`);
+    }
+
+    function mostrarResultados() {
+      if (alunos.length === 0) {
+        alert("Nenhum aluno cadastrado ainda!");
+        return;
+      }
+
+      let html = "<table>";
+      html += "<tr><th>Aluno</th><th>Notas</th><th>Média</th></tr>";
+
+      // Percorre a matriz de notas
+      for (let i = 0; i < alunos.length; i++) {
+        let notas = notasAlunos[i];
+        let soma = 0;
+
+        for (let j = 0; j < notas.length; j++) {
+          soma += notas[j];
+        }
+
+        let media = soma / notas.length;
+        html += `<tr>
+                    <td>${alunos[i]}</td>
+                    <td>${notas.join(", ")}</td>
+                    <td>${media.toFixed(2)}</td>
+                 </tr>`;
+      }
+
+      html += "</table>";
+
+      document.getElementById("saida").innerHTML = html;
+    }
+  </script>
 
 </body>
 </html>
