@@ -31,6 +31,16 @@
     th {
       background-color: #eaeaea;
     }
+    .aprovado {
+      background-color: #c8e6c9;
+      color: #256029;
+      font-weight: bold;
+    }
+    .reprovado {
+      background-color: #ffcdd2;
+      color: #b71c1c;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
@@ -90,7 +100,7 @@
       }
 
       let html = "<table>";
-      html += "<tr><th>Aluno</th><th>Notas</th><th>Média</th></tr>";
+      html += "<tr><th>Aluno</th><th>Notas</th><th>Média</th><th>Status</th></tr>";
 
       // Percorre a matriz de notas
       for (let i = 0; i < alunos.length; i++) {
@@ -102,10 +112,14 @@
         }
 
         let media = soma / notas.length;
+        let status = media >= 7 ? "Aprovado ✅" : "Reprovado ❌";
+        let classe = media >= 7 ? "aprovado" : "reprovado";
+
         html += `<tr>
                     <td>${alunos[i]}</td>
                     <td>${notas.join(", ")}</td>
                     <td>${media.toFixed(2)}</td>
+                    <td class="${classe}">${status}</td>
                  </tr>`;
       }
 
