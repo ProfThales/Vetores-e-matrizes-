@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exemplo de Vetores e Matrizes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+            background-color: #f2f2f2;
+        }
+        h1 {
+            color: #333;
+        }
+        pre {
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Exemplo de Vetores e Matrizes em JavaScript</h1>
+
+    <pre id="saida"></pre>
+
+    <script>
+        // ---------- VETORES ----------
+        // Um vetor é uma lista de elementos
+        let frutas = ["Maçã", "Banana", "Laranja", "Uva"];
+
+        // Acessando elementos do vetor
+        let primeiraFruta = frutas[0];
+        let ultimaFruta = frutas[frutas.length - 1];
+
+        // ---------- MATRIZES ----------
+        // Uma matriz é um vetor de vetores
+        let matriz = [
+            [1, 2, 3],
+            [4, 5, 6],
+            [7, 8, 9]
+        ];
+
+        // Acessando elementos da matriz
+        let elementoCentral = matriz[1][1]; // linha 1, coluna 1 (valor 5)
+        let cantoInferiorDireito = matriz[2][2]; // linha 2, coluna 2 (valor 9)
+
+        // ---------- EXIBIÇÃO ----------
+        let texto = "";
+
+        texto += "=== VETORES ===\n";
+        texto += "Frutas: " + frutas.join(", ") + "\n";
+        texto += "Primeira fruta: " + primeiraFruta + "\n";
+        texto += "Última fruta: " + ultimaFruta + "\n\n";
+
+        texto += "=== MATRIZES ===\n";
+        texto += "Matriz:\n" + JSON.stringify(matriz) + "\n";
+        texto += "Elemento central (matriz[1][1]): " + elementoCentral + "\n";
+        texto += "Canto inferior direito (matriz[2][2]): " + cantoInferiorDireito + "\n";
+
+        // Exibe o resultado na página
+        document.getElementById("saida").textContent = texto;
+    </script>
+
+</body>
+</html>
